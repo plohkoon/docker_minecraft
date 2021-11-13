@@ -1,0 +1,14 @@
+version: "2.4"
+services:
+  better_minecraft:
+    build:
+      context: ./
+      dockerfile: Dockerfile.better_minecraft
+    image: minecraft:better_minecraft
+    ports:
+      - 25565:25565
+    volumes:
+      - ./better_minecraft:/app/world/
+      - ./backups/better_minecraft:/app/backups
+    restart: always
+    stop_grace_period: 60s
