@@ -21,8 +21,8 @@ WORKDIR /app
 
 COPY --from=build /build .
 COPY eula.txt ops.json ./
+COPY better_minecraft/config/* config/
 
 RUN mkdir world
 
-CMD ["apt-get", "update"]
-# CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.8.jar", "nogui", "&&", "false" ]
+CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.8.jar", "nogui", "&&", "false" ]
