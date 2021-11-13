@@ -25,4 +25,4 @@ COPY better_minecraft/config/* config/
 
 RUN mkdir world
 
-CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.8.jar", "nogui", "&&", "false" ]
+CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.8.jar", "nogui" ]
