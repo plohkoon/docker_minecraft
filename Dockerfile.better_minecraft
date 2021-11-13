@@ -13,13 +13,13 @@ RUN java -jar forge-1.16.5-36.2.8-installer.jar --installServer
 
 RUN rm -rf files.zip forge-*-installer.* *.bat
 
-FROM openjdk:11 AS runner
+# FROM openjdk:11 AS runner
 
 RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY --from=build /build .
+RUN cp -r /build/* .
 COPY eula.txt ops.json ./
 COPY better_minecraft/config/* config/
 
