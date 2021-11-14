@@ -4,12 +4,12 @@ RUN mkdir -p /build
 
 WORKDIR /build
 
-RUN curl https://media.forgecdn.net/files/3509/114/Better+Minecraft+Server+Pack+%5bFORGE%5d+v42+hf.zip --output files.zip && \
+RUN curl https://media.forgecdn.net/files/3520/162/Better+Minecraft+Server+Pack+%5bFORGE%5d+v44.zip --output files.zip && \
   unzip files.zip && \
   mv 'Better Minecraft Server Pack [FORGE] 1.16.5'/* . && \
   rm -rf 'Better Minecraft Server Pack [FORGE] 1.16.5'
 
-RUN java -jar forge-1.16.5-36.2.8-installer.jar --installServer
+RUN java -jar forge-1.16.5-36.2.9-installer.jar --installServer
 
 RUN rm -rf files.zip forge-*-installer.* *.bat
 
@@ -25,4 +25,4 @@ COPY better_minecraft/config/* config/
 
 RUN mkdir world
 
-CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.8.jar", "nogui" ]
+CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.16.5-36.2.9.jar", "nogui" ]
