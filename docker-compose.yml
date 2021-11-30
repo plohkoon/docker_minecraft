@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.better_minecraft
     image: minecraft:better_minecraft
     ports:
-      - 25565:25565
+      - 25566:25566
     volumes:
       - ./better_minecraft/world:/app/world/
       - ./backups/better_minecraft:/app/backups
@@ -15,3 +15,16 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+  v1_18:
+    build:
+      context: ./
+      dockerfile: Dockerfile.1.18
+    image: minecraft:1.18
+    ports:
+      - 25565:25565
+    volumes:
+      - ./1.18/world:/app/world/
+      - ./1.18/logs:/app/logs
+      - ./1.18/crash-reports:/app/crash-reports
+    
+  
