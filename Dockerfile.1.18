@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-RUN curl https://launcher.mojang.com/v1/objects/5889357fe058d867f6e27ee3f033286c430ec91e/server.jar --output server.jar
+RUN curl https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar --output server.jar
 
 COPY eula.txt ops.json ./
 COPY 1.18/server.properties ./
