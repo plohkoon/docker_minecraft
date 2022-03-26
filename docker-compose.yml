@@ -1,20 +1,5 @@
 version: "3.8"
 services:
-  better_minecraft:
-    build:
-      context: ./
-      dockerfile: Dockerfile.better_minecraft
-    image: minecraft:better_minecraft
-    ports:
-      - 25566:25566
-    volumes:
-      - ./better_minecraft/world:/app/world/
-      - ./backups/better_minecraft:/app/backups
-      - ./better_minecraft/logs:/app/logs
-      - ./better_minecraft/crash-reports:/app/crash-reports
-    deploy:
-      restart_policy:
-        condition: on-failure
   v1_18:
     build:
       context: ./
@@ -26,5 +11,24 @@ services:
       - ./1.18/world:/app/world/
       - ./1.18/logs:/app/logs
       - ./1.18/crash-reports:/app/crash-reports
-    
-  
+      - type: bind
+        source: ./whitelist.json
+        target: /app/whitelist.json
+    tty: true
+    stdin_open: true
+  snapshot:
+    build:
+      context: ./
+      dockerfile: Dockerfile.snapshot
+    image: minecraft:snapshot
+    ports:
+      - 25566:25565
+    volumes:
+      - ./snapshot/world:/app/world/
+      - ./snapshot/logs:/app/logs
+      - ./snapshot/crash-reports:/app/crash-reports
+      - type: bind
+        source: ./whitelist.json
+        target: /app/whitelist.json
+    tty: true
+    stdin_open: true
