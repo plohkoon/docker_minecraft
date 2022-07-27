@@ -1,0 +1,35 @@
+FROM openjdk:17-buster AS build
+
+RUN mkdir -p /build
+
+WORKDIR /build
+
+# RUN curl https://mediafiles.forgecdn.net/files/3843/279/Server-Files-0.4.16.zip --output files.zip
+RUN curl https://mediafiles.forgecdn.net/files/3841/307/Server-Files-0.4.15.zip --output files.zip
+RUN unzip files.zip
+# RUN mv 'Server-Files-0.4.16'/* .
+RUN mv 'Server-Files-0.4.15'/* .
+# RUN rm -rf 'Server-Files-0.4.16'
+RUN rm -rf 'Server-Files-0.4.15'
+
+RUN java -jar forge-1.18.2-40.1.31-installer.jar --installServer
+
+RUN rm -rf files.zip forge-*-installer.* *.bat
+
+FROM openjdk:17-buster AS runner
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+COPY --from=build /build/ ./
+COPY eula.txt ops.json ./
+# COPY atm7/config/* config/
+
+RUN mkdir world logs crash-reports backups
+
+EXPOSE 25565
+VOLUME [ "/app/world", "/app/logs", "/app/crash-reports", "/app/backups" ]
+
+# CMD [ "java", "-Xms4G", "-Xmx5G", "-jar", "forge-1.18.2-40.1.31.jar", "nogui" ]
+CMD ["./run.sh"]

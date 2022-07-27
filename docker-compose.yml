@@ -1,34 +1,50 @@
 version: "3.8"
 services:
-  v1_18:
+  # v1_18:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile.1.18
+  #   image: minecraft:1.18
+  #   ports:
+  #     - 25565:25565
+  #   volumes:
+  #     - ./1.18/world:/app/world/
+  #     - ./1.18/logs:/app/logs
+  #     - ./1.18/crash-reports:/app/crash-reports
+  #     - type: bind
+  #       source: ./whitelist.json
+  #       target: /app/whitelist.json
+  #   tty: true
+  #   stdin_open: true
+  # snapshot:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile.snapshot
+  #   image: minecraft:snapshot
+  #   ports:
+  #     - 25566:25565
+  #   volumes:
+  #     - ./snapshot/world:/app/world/
+  #     - ./snapshot/logs:/app/logs
+  #     - ./snapshot/crash-reports:/app/crash-reports
+  #     - type: bind
+  #       source: ./whitelist.json
+  #       target: /app/whitelist.json
+  #   tty: true
+  #   stdin_open: true
+  atm7:
     build:
       context: ./
-      dockerfile: Dockerfile.1.18
-    image: minecraft:1.18
+      dockerfile: Dockerfile.atm7
+    image: plohkoon/minecraft:atm7-0.4.15
     ports:
       - 25565:25565
     volumes:
-      - ./1.18/world:/app/world/
-      - ./1.18/logs:/app/logs
-      - ./1.18/crash-reports:/app/crash-reports
-      - type: bind
-        source: ./whitelist.json
-        target: /app/whitelist.json
-    tty: true
-    stdin_open: true
-  snapshot:
-    build:
-      context: ./
-      dockerfile: Dockerfile.snapshot
-    image: minecraft:snapshot
-    ports:
-      - 25566:25565
-    volumes:
-      - ./snapshot/world:/app/world/
-      - ./snapshot/logs:/app/logs
-      - ./snapshot/crash-reports:/app/crash-reports
-      - type: bind
-        source: ./whitelist.json
-        target: /app/whitelist.json
+      - ./atm7/world:/app/world/
+      - ./atm7/logs:/app/logs
+      - ./atm7/crash-reports:/app/crash-reports
+      # - type: bind
+      #   source: ./whitelist.json
+      #   target: /app/whitelist.json
     tty: true
     stdin_open: true
