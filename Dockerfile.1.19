@@ -1,0 +1,14 @@
+FROM openjdk:17
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN curl https://piston-data.mojang.com/v1/objects/8399e1211e95faa421c1507b322dbeae86d604df/server.jar --output server.jar
+
+COPY eula.txt ops.json ./
+COPY 1.19/server.properties ./
+
+RUN mkdir world
+
+CMD [  "java", "-Xms4G", "-Xmx5G", "-jar", "server.jar", "nogui"  ]
