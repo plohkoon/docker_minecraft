@@ -1,0 +1,24 @@
+FROM eclipse-temurin:17-jre-focal AS build
+
+RUN apt-get -y update && \
+  apt-get -y install curl unzip
+
+RUN mkdir -p /build
+
+WORKDIR /build
+
+RUN curl https://mediafilez.forgecdn.net/files/6253/993/server-1.1.5.zip --output files.zip && \
+  unzip files.zip && \
+  rm -rf files.zip
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN cp -r /build/* .
+COPY eula.txt ops.json whitelist.json atm9/server.properties ./
+
+RUN mkdir world
+RUN chmod +x ./startserver.sh
+
+CMD ["/app/startserver.sh"]
