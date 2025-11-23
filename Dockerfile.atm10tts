@@ -1,7 +1,9 @@
-FROM eclipse-temurin:17-jre-focal AS build
+FROM alpine/java:21-jre AS build
 
-RUN apt-get -y update && \
-  apt-get -y install curl unzip
+# RUN apt-get -y update && \
+#   apt-get -y install curl unzip
+
+RUN apk add --no-cache curl unzip
 
 RUN mkdir -p /build
 
@@ -20,5 +22,7 @@ COPY eula.txt ops.json whitelist.json atm9/server.properties ./
 
 RUN mkdir world
 RUN chmod +x ./startserver.sh
+
+RUN ATM10_INSTALL_ONLY=true ./startserver.sh
 
 CMD ["/app/startserver.sh"]
