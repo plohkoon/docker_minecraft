@@ -1,0 +1,28 @@
+FROM alpine/java:21-jre AS build
+
+# RUN apt-get -y update && \
+#   apt-get -y install curl unzip
+
+RUN apk add --no-cache curl unzip
+
+RUN mkdir -p /build
+
+WORKDIR /build
+
+RUN curl https://mediafilez.forgecdn.net/files/7141/883/server-1.6.1.zip --output files.zip && \
+  unzip files.zip && \
+  rm -rf files.zip
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN cp -r /build/server-1.6.1/* .
+COPY eula.txt ops.json whitelist.json atm10/server.properties ./
+
+RUN mkdir world
+RUN chmod +x ./startserver.sh
+
+RUN ATM10_INSTALL_ONLY=true ./startserver.sh
+
+CMD ["/app/startserver.sh"]
